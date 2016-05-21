@@ -3,7 +3,7 @@ Aims to be a deterministic emacs configuration using git subtrees
 
 ## Usage
 
-Install `stow`, `emacs` and `make`, then run `./bootstrap.sh`.
+Install `stow`, `cask`, `emacs` and `make`, then run `./bootstrap.sh`.
 
 ## Subtrees
 
@@ -17,3 +17,6 @@ never want to update packages!
 | async | `git subtree pull --prefix emacs/.emacs.d/async https://github.com/jwiegley/emacs-async master --squash` |
 | helm | `git subtree pull --prefix emacs/.emacs.d/helm https://github.com/emacs-helm/helm master --squash` |
 | helm-swoop | `git subtree pull --prefix emacs/.emacs.d/helm-swoop https://github.com/ShingoFukuyama/helm-swoop master --squash` |
+| dash | `git subtree pull --prefix emacs/.emacs.d/dash https://github.com/magnars/dash.el master --squash` |
+| projectile | `git subtree pull --prefix emacs/.emacs.d/projectile https://github.com/bbatsov/projectile master --squash` |
+

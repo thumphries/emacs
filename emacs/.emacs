@@ -4,7 +4,9 @@
    '("markdown-mode"
      "async"
      "helm"
-     "helm-swoop")))
+     "helm-swoop"
+     "dash"
+     "projectile")))
 
 
 ; helm
@@ -17,3 +19,12 @@
 
 ;; enable gfm-mode on markdown files
 (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
+
+; projectile
+(require 'projectile)
+(projectile-global-mode)
+
+;; common stuff that probably shouldn't be here
+
+;; Disable the ridiculous and frustrating electric-indent
+(electric-indent-mode 0)
