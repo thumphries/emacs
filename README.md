@@ -18,3 +18,9 @@ git subtree pull --prefix emacs/.emacs.d/markdown-mode https://github.com/defunk
 ```
 git subtree pull --prefix emacs/.emacs.d/async https://github.com/jwiegley/emacs-async master --squash
 ```
+
+### helm
+
+```
+git subtree pull --prefix emacs/.emacs.d/helm https://github.com/emacs-helm/helm master --squash
+```
