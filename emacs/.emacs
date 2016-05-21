@@ -1,15 +1,19 @@
-
+; (add-to-list 'load-path "~/.emacs.d/lisp/")
 (let ((default-directory  "~/.emacs.d/"))
   (normal-top-level-add-to-load-path
    '("markdown-mode"
      "async"
-     "helm")))
+     "helm"
+     "helm-swoop")))
 
-(autoload 'markdown-mode "markdown-mode"
-  "Major mode for editing Markdown files" t)
 
+; helm
 (require 'helm-config)
+(require 'helm-swoop)
 
+; markdown-mode
+(autoload 'gfm-mode "markdown-mode"
+  "Major mode for editing Github-Flavored Markdown files" t)
 
-;; enable markdown mode on markdown files
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+;; enable gfm-mode on markdown files
+(add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
