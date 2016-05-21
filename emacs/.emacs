@@ -6,12 +6,14 @@
      "helm"
      "helm-swoop"
      "dash"
-     "projectile")))
+     "projectile"
+     "haskell-mode")))
 
 
 ; helm
 (require 'helm-config)
 (require 'helm-swoop)
+
 
 ; markdown-mode
 (autoload 'gfm-mode "markdown-mode"
@@ -20,9 +22,16 @@
 ;; enable gfm-mode on markdown files
 (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
 
+
 ; projectile
 (require 'projectile)
 (projectile-global-mode)
+
+
+; haskell-mode
+(require 'haskell-mode-autoloads)
+
+
 
 ;; common stuff that probably shouldn't be here
 

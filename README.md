@@ -5,6 +5,10 @@ Aims to be a deterministic emacs configuration using git subtrees
 
 Install `stow`, `cask`, `emacs` and `make`, then run `./bootstrap.sh`.
 
+Ideally we'd be able to stow the individual packages we want and let
+bootstrap do the rest, but too lazy to do this for now (may change if
+I re-add Proof General or agda-mode, installing those really sucks!)
+
 ## Subtrees
 
 Git subtree doesn't store the upstream details anywhere, so we have to
@@ -19,4 +23,4 @@ never want to update packages!
 | helm-swoop | `git subtree pull --prefix emacs/.emacs.d/helm-swoop https://github.com/ShingoFukuyama/helm-swoop master --squash` |
 | dash | `git subtree pull --prefix emacs/.emacs.d/dash https://github.com/magnars/dash.el master --squash` |
 | projectile | `git subtree pull --prefix emacs/.emacs.d/projectile https://github.com/bbatsov/projectile master --squash` |
-
+| haskell-mode | `git subtree pull --prefix emacs/.emacs.d/haskell-mode https://github.com/haskell/haskell-mode master --squash` |
