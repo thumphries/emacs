@@ -8,7 +8,8 @@
      "helm-swoop"
      "dash"
      "projectile"
-     "haskell-mode")))
+     "haskell-mode"
+     "org-journal")))
 
 
 ; helm

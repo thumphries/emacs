@@ -12,6 +12,6 @@ for p in \
   haskell-mode
 do
   pushd ${EMACS_D}/${p}
-    make  
+    make
   popd
 done
