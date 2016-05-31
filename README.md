@@ -26,3 +26,4 @@ never want to update packages!
 | projectile | `git subtree pull --prefix emacs/.emacs.d/projectile https://github.com/bbatsov/projectile master --squash` |
 | haskell-mode | `git subtree pull --prefix emacs/.emacs.d/haskell-mode https://github.com/haskell/haskell-mode master --squash` |
 | org-journal | `git subtree pull --prefix emacs/.emacs.d/org-journal https://github.com/bastibe/org-journal master --squash` |
+| scala-mode2 | `git subtree pull --prefix emacs/.emacs.d/scala-mode2 https://github.com/hvesalai/scala-mode2 master --squash` |

@@ -9,7 +9,8 @@
      "dash"
      "projectile"
      "haskell-mode"
-     "org-journal")))
+     "org-journal"
+     "scala-mode2")))
 
 
 ; helm
