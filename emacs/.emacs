@@ -134,8 +134,15 @@
 
 ; AutoRefill mode to enforce paragraphs (defun toggle-autorefill
 (add-hook 'org-mode-hook (lambda () (auto-fill-mode 1)))
+
+;; register custom input method
+(register-input-method
+  "TeXlIkE" "UTF-8" 'quail-use-package
+  "\\" "TeX input method without subscripts."
+  "~/.emacs.d/quail/latin-ltx")
 ;; Enable Agda-style unicode input for Org
-(add-hook 'org-mode-hook (lambda () (set-input-method "TeX")))
+(add-hook 'org-mode-hook (lambda () (set-input-method "TeXlIkE")))
+
 
 ;; Enable FAILURE
 (setq org-todo-keywords
