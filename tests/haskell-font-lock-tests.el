@@ -443,6 +443,17 @@
    '("Q +++ 12.12")
    '(("+++" t haskell-definition-face))))
 
+(ert-deftest haskell-syntactic-definition-face-4 ()
+  (check-properties
+   '("_test'")
+   '(("_test'" t nil))))
+
+(ert-deftest haskell-syntactic-definition-face-5 ()
+  (check-properties
+   '("_test' _")
+   '(("_test'" t haskell-definition-face))))
+
+
 (ert-deftest haskell-literate-bird-1 ()
   (check-properties
    '("Comment1"
@@ -866,3 +877,69 @@
      ("Y" t haskell-constructor-face)
      ("Z" t haskell-type-face)
      ("C" t haskell-constructor-face))))
+
+(ert-deftest haskell-type-colors-31 ()
+  (check-properties
+   ;; open parentheses do not keep type decl open because there might
+   ;; be an unclosed parenthesis stretching to the end of file and
+   ;; that is very costly to check
+   '("x :: (OpenParen"
+     "   NotType)")
+   '(("OpenParen" t haskell-type-face)
+     ("NotType" t haskell-constructor-face))))
+
+(ert-deftest haskell-pattern ()
+  "Fontify the \"pattern\" keyword in contexts related to pattern synonyms."
+  :expected-result :failed
+  (check-properties
+   '("pattern A = B"
+     "pattern A <- B"
+     "pattern A ← B"
+     "pattern A n <- (subtract 1 -> n) where A n = n + 1"
+     "module Main (pattern A) where"
+     "pattern A :: a -> B"
+     "pattern A :: (C a) => a -> B"
+     "pattern A :: (C a) => a -> B"
+     "pattern A :: (C a) => () => a -> B"
+     "pattern A :: (C a) => () => a -> B"
+     "pattern A :: (C a) => (C a) => a -> B"
+     "pattern A :: (C a) => (C a) => a -> B")
+   '(("pattern" t haskell-keyword-face)
+     ("pattern" t haskell-keyword-face)
+     ("pattern" t haskell-keyword-face)
+     ("pattern" t haskell-keyword-face)
+     ("module"  t haskell-keyword-face)
+     ("pattern" t haskell-keyword-face)
+     ("where"   t haskell-keyword-face)
+     ("pattern" t haskell-keyword-face)
+     ("pattern" t haskell-keyword-face)
+     ("pattern" t haskell-keyword-face)
+     ("pattern" t haskell-keyword-face)
+     ("pattern" t haskell-keyword-face)
+     ("pattern" t haskell-keyword-face)
+     ("pattern" t haskell-keyword-face))))
+
+(ert-deftest haskell-no-pattern-1 ()
+  "Don't fontify \"pattern\" in contexts unrelated to pattern synonyms."
+  ;; This already works properly
+  ;;:expected-result :failed
+  (check-properties
+   '("pattern :: Int"
+     "pattern = 3")
+   '(("pattern" t haskell-definition-face)
+     ("pattern" t haskell-definition-face))))
+
+(ert-deftest haskell-no-pattern-2 ()
+  "Don't fontify \"pattern\" in contexts unrelated to pattern synonyms."
+  ;; This already works properly
+  ;;:expected-result :failed
+  (check-properties
+   '("foo :: (a -> pattern) -> a -> pattern"
+     "foo pattern x = pattern x"
+     "bar = pattern where pattern = 5")
+   '(("pattern" t nil)
+     ("pattern" t nil)
+     ("pattern" t nil)
+     ("pattern" t nil)
+     ("pattern" t nil)
+     ("pattern" t nil))))
