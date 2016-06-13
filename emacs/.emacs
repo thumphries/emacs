@@ -10,7 +10,8 @@
      "projectile"
      "haskell-mode"
      "org-journal"
-     "scala-mode2")))
+     "scala-mode2"
+     "yasnippet")))
 
 
 ; helm

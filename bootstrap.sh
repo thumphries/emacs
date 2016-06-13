@@ -11,7 +11,8 @@ for p in \
   helm \
   projectile \
   haskell-mode \
-  scala-mode2
+  scala-mode2 \
+  yasnippet
 do
   pushd ${EMACS_D}/${p}
     make
