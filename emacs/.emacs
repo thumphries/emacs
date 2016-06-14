@@ -10,7 +10,9 @@
      "projectile"
      "haskell-mode"
      "org-journal"
-     "scala-mode2")))
+     "scala-mode2"
+     "yasnippet"
+     "haskell-snippets")))
 
 
 ; helm
@@ -237,3 +239,13 @@
 (global-set-key (kbd "C-x C-r") 'helm-recentf)
 
 (setq tramp-default-method "ssh")
+
+;; yasnippet
+(require 'yasnippet)
+
+;; haskell-snippets
+(require 'haskell-snippets)
+(add-to-list 'yas-snippet-dirs "~/.emacs.d/haskell-snippets/snippets")
+
+(yas-reload-all)
+(add-hook 'haskell-mode-hook #'yas-minor-mode)
