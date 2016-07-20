@@ -12,7 +12,8 @@
      "org-journal"
      "scala-mode2"
      "yasnippet"
-     "haskell-snippets")))
+     "haskell-snippets"
+     "handlebars-sgml-mode")))
 
 
 ; helm
@@ -249,3 +250,7 @@
 
 (yas-reload-all)
 (add-hook 'haskell-mode-hook #'yas-minor-mode)
+
+;; handlebars-sgml
+(require 'handlebars-sgml-mode)
+(handlebars-use-mode 'global)
