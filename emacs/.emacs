@@ -254,3 +254,6 @@
 ;; handlebars-sgml
 (require 'handlebars-sgml-mode)
 (handlebars-use-mode 'global)
+
+;; add trailing newlines on save
+(setq require-final-newline t)
