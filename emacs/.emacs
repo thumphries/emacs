@@ -257,3 +257,6 @@
 
 ;; add trailing newlines on save
 (setq require-final-newline t)
+
+;; handy bindings for ergodox
+(global-set-key (kbd "M-_") 'backward-kill-word)
