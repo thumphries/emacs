@@ -29,6 +29,8 @@
 ;; enable gfm-mode on markdown files
 (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
 
+;; enable haskell-mode on purescript files
+(add-to-list 'auto-mode-alist '("\\.purs\\'" . haskell-mode))
 
 ; projectile
 (require 'projectile)
