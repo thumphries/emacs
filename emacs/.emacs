@@ -64,8 +64,13 @@
 
 ;; Stuff from old .emacs that should be split out somewhere
 
-(load-theme 'dichromacy)
+;; disable old themes before loading new ones
+;; http://stackoverflow.com/questions/9900232/changing-color-themes-emacs-24-order-matters/15595000#15595000
+(defadvice load-theme
+  (before theme-dont-propagate activate)
+  (mapcar #'disable-theme custom-enabled-themes))
 
+(load-theme 'dichromacy)
 
 ;; smooth-scroll is clunky and doesn't behave like ordinary OS X scrolling
 (setq scroll-conservatively 10000)
