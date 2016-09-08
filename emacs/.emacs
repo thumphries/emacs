@@ -13,7 +13,8 @@
      "scala-mode2"
      "yasnippet"
      "haskell-snippets"
-     "handlebars-sgml-mode")))
+     "handlebars-sgml-mode"
+     "spacemacs-theme")))
 
 
 ; helm
@@ -70,7 +71,33 @@
   (before theme-dont-propagate activate)
   (mapcar #'disable-theme custom-enabled-themes))
 
-(load-theme 'dichromacy)
+;; disable bold faces
+(set-face-bold-p 'bold nil)
+
+;; Font stuff
+(set-face-attribute 'default nil :height 120)
+;; (print (font-family-list))
+;;(set-frame-font "Terminus (TTF)" nil t)
+(set-frame-font "Essential PragmataPro" nil t)
+
+;; spacemacs-theme
+(require 'spacemacs-common)
+;(load-theme 'spacemacs-dark)
+;(load-theme 'spacemacs-light)
+
+(defun toggle-theme ()
+  "Toggle light and dark schemes"
+  (interactive)
+  ;; use a property “state”. Value is t or nil
+  (if (get 'toggle-theme 'state)
+    (progn
+      (load-theme 'spacemacs-dark t)
+      (put 'toggle-theme 'state nil))
+    (progn
+      (load-theme 'spacemacs-light t)
+      (put 'toggle-theme 'state t))))
+(toggle-theme)
+(global-set-key (kbd "C-x C--") 'toggle-theme)
 
 ;; smooth-scroll is clunky and doesn't behave like ordinary OS X scrolling
 (setq scroll-conservatively 10000)
@@ -153,10 +180,9 @@
 ;; Enable Agda-style unicode input for Org
 (add-hook 'org-mode-hook (lambda () (set-input-method "TeXlIkE")))
 
-
-;; Enable FAILURE
+;; Global keyword set
 (setq org-todo-keywords
-       '((sequence "TODO" "|" "DONE" "NOPE")))
+      '((type "TODO(!)" "DOING(!)" "|" "DONE(!)" "WONTDO(@)" "IMPOSSIBLE(@)")))
 
 ;; Fine-grained TODO logging
 (setq org-log-done t)
@@ -180,10 +206,6 @@
 ;; Add INBOX and other contexts to agenda pop-up
 (setq org-agenda-custom-commands
       '(("i" "INBOX" tags "-{^@}/!" nil)))
-
-;; Global keyword set
-(setq org-todo-keywords
-      '((type "TODO(!)" "DOING(!)" "|" "DONE(!)" "WONTDO(@)" "IMPOSSIBLE(@)")))
 
 ;; org-journal
 ;; Give all journal files a .org suffix, triggering org-mode

@@ -30,3 +30,4 @@ never want to update packages!
 | yasnippet | `git subtree pull --prefix emacs/.emacs.d/yasnippet https://github.com/joaotavora/yasnippet master --squash` |
 | haskell-snippets | `git subtree pull --prefix emacs/.emacs.d/haskell-snippets https://github.com/haskell/haskell-snippets master --squash` |
 | handlebars-sgml-mode | `git subtree pull --prefix emacs/.emacs.d/handlebars-sgml-mode https://github.com/jacott/handlebars-sgml-mode master --squash` |
+| spacemacs-theme | `git subtree pull --prefix emacs/.emacs.d/spacemacs-theme https://github.com/nashamri/spacemacs-theme master --squash` |
