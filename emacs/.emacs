@@ -97,6 +97,7 @@
       (load-theme 'spacemacs-light t)
       (put 'toggle-theme 'state t))))
 (toggle-theme)
+(global-set-key (kbd "C-x C-_") 'toggle-theme)
 (global-set-key (kbd "C-x C--") 'toggle-theme)
 
 ;; smooth-scroll is clunky and doesn't behave like ordinary OS X scrolling
