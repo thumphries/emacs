@@ -27,8 +27,7 @@ never want to update packages!
 | haskell-mode | `git subtree pull --prefix emacs/.emacs.d/haskell-mode https://github.com/haskell/haskell-mode master --squash` |
 | org-journal | `git subtree pull --prefix emacs/.emacs.d/org-journal https://github.com/bastibe/org-journal master --squash` |
 | scala-mode2 | `git subtree pull --prefix emacs/.emacs.d/scala-mode2 https://github.com/hvesalai/scala-mode2 master --squash` |
-| yasnippet | `git subtree pull --prefix emacs/.emacs.d/yasnippet
-https://github.com/joaotavora/yasnippet master --squash` |
-| haskell-snippets | `git subtree add --prefix
-emacs/.emacs.d/haskell-snippets
-https://github.com/haskell/haskell-snippets master --squash` |
+| yasnippet | `git subtree pull --prefix emacs/.emacs.d/yasnippet https://github.com/joaotavora/yasnippet master --squash` |
+| haskell-snippets | `git subtree pull --prefix emacs/.emacs.d/haskell-snippets https://github.com/haskell/haskell-snippets master --squash` |
+| handlebars-sgml-mode | `git subtree pull --prefix emacs/.emacs.d/handlebars-sgml-mode https://github.com/jacott/handlebars-sgml-mode master --squash` |
+| spacemacs-theme | `git subtree pull --prefix emacs/.emacs.d/spacemacs-theme https://github.com/nashamri/spacemacs-theme master --squash` |
