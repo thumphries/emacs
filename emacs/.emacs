@@ -33,10 +33,12 @@
 ;; enable haskell-mode on purescript files
 (add-to-list 'auto-mode-alist '("\\.purs\\'" . haskell-mode))
 
+; jump to scratch instead of gnu welcome
+(setq inhibit-startup-screen t)
+
 ; projectile
 (require 'projectile)
 (projectile-global-mode)
-
 
 ; haskell-mode
 (require 'haskell-mode-autoloads)
