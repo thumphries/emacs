@@ -210,6 +210,19 @@
 (setq org-agenda-custom-commands
       '(("i" "INBOX" tags "-{^@}/!" nil)))
 
+;; org-agenda window dedication
+(add-hook 'org-agenda-mode-hook
+      (lambda ()
+        (interactive)
+        (set-window-dedicated-p (selected-window) 1)))
+
+;; save org-clock history
+(setq org-clock-persist 'history)
+(org-clock-persistence-insinuate)
+
+;; org-clock prompt after idle
+(setq org-clock-idle-time 25)
+
 ;; org-journal
 ;; Give all journal files a .org suffix, triggering org-mode
 (setq org-journal-file-format "%Y%m%d.org")
