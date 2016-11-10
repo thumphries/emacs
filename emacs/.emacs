@@ -14,7 +14,8 @@
      "yasnippet"
      "haskell-snippets"
      "handlebars-sgml-mode"
-     "spacemacs-theme")))
+     "spacemacs-theme"
+     "hindent")))
 
 
 ; helm
@@ -43,6 +44,10 @@
 ; haskell-mode
 (require 'haskell-mode-autoloads)
 
+; hindent
+(require 'hindent)
+(add-hook 'haskell-mode-hook #'hindent-mode)
+
 ;; common stuff that probably shouldn't be here
 ;; Disable the ridiculous and frustrating electric-indent
 (electric-indent-mode 0)
@@ -64,6 +69,11 @@
           (load f)
           (add-to-list 'load-dir-loaded f))))))
 
+
+;; mark ring
+;; C-SPC C-SPC - add to mark ring
+;; C-u C-SPC <repeat> - cycle marks
+(setq set-mark-command-repeat-pop t)
 
 ;; Stuff from old .emacs that should be split out somewhere
 
