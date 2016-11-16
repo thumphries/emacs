@@ -12,6 +12,45 @@
 (require 'comint)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Modes
+
+(defvar mafia-mode-map (make-sparse-keymap)
+  "mafia minor mode's map.")
+
+(defvar-local mafia-lighter " mafia"
+  "Lighter for the intero minor mode.")
+
+;;;###autoload
+(define-minor-mode mafia-mode
+  "Minor mode for mafia
+
+\\{mafia-mode-map}"
+  :lighter mafia-lighter
+  :keymap mafia-mode-map
+  (when (bound-and-true-p interactive-haskell-mode)
+    (when (fboundp 'interactive-haskell-mode)
+      (message "Disabling interactive-haskell-mode ...")
+      (interactive-haskell-mode -1)))
+  (if mafia-mode
+    (message "mafia mode enabled.")
+;;      (progn (flycheck-select-checker 'intero)
+;;             (flycheck-mode)
+;;             (add-to-list (make-local-variable 'company-backends) 'company-intero)
+;;             (company-mode)
+;;             (setq-local eldoc-documentation-function 'eldoc-intero))
+    (message "mafia mode disabled.")))
+
+(define-key mafia-mode-map (kbd "C-c C-z") 'mafia-repl)
+(define-key mafia-mode-map (kbd "C-c C-l") 'mafia-repl-load)
+(define-key mafia-mode-map (kbd "C-c C-r") 'mafia-repl-reload)
+
+;;(define-key intero-mode-map (kbd "C-c C-t") 'intero-type-at)
+;;(define-key intero-mode-map (kbd "C-c C-i") 'intero-info)
+;;(define-key intero-mode-map (kbd "M-.") 'intero-goto-definition)
+;;(define-key intero-mode-map (kbd "C-c C-r") 'intero-apply-suggestions)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Configuration
 
 (defgroup mafia nil
@@ -158,6 +197,31 @@ This is set by `mafia-repl-buffer', and should otherwise be nil.")
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer)))
 
+;; for some reason intero copies the file before loading it
+;; this means reload doesn't work
+(defun mafia-repl-load (&optional prompt-options)
+  "Load the current file in the REPL.
+If PROMPT-OPTIONS is non-nil, prompt with an options list."
+  (interactive "P")
+  (save-buffer)
+  (let ((file (mafia-temp-file-name))
+        (repl-buffer (mafia-repl-buffer prompt-options t)))
+    (with-current-buffer repl-buffer
+      (comint-simple-send
+        (get-buffer-process (current-buffer))
+        (concat ":l " file)))
+    (pop-to-buffer repl-buffer)))
+
+(defun mafia-repl-reload (&optional prompt-options)
+  "Reload the repl without popping to it."
+  (interactive "P")
+  (save-buffer)
+  (let ((repl-buffer (mafia-repl-buffer prompt-options t)))
+    (with-current-buffer repl-buffer
+      (comint-simple-send
+        (get-buffer-process (current-buffer))
+        ":r"))))
+
 (defun mafia-repl (&optional prompt-options)
   "Start up the REPL for this buffer.
 If PROMPT-OPTIONS is non-nil, prompt with an options list."
@@ -193,7 +257,7 @@ STORE-PREVIOUS is non-nil, note the caller's buffer in
           (setq mafia-repl-previous-buffer initial-buffer))
         (current-buffer)))))
 
-(define-derived-mode mafia-repl-mode comint-mode "Mafia-REPL"
+(define-derived-mode mafia-repl-mode comint-mode "mafia-repl"
   "Interactive prompt for Mafia."
   (when (and (not (eq major-mode 'fundamental-mode))
              (eq this-command 'mafia-repl-mode))
@@ -206,7 +270,6 @@ STORE-PREVIOUS is non-nil, note the caller's buffer in
   (setq-local comint-prompt-read-only t))
   ;; (add-to-list (make-local-variable 'company-backends) 'company-intero)
   ;; (company-mode))
-
 
 (defun mafia-repl-mode-start (backend-buffer targets prompt-options)
   "Start the process for the repl in the current buffer.
@@ -399,6 +462,32 @@ The process ended. Here is the reason that Emacs gives us:
   "Display a warning message made from (format MESSAGE ARGS...).
 Equivalent to 'warn', but label the warning as coming from mafia."
   (display-warning 'mafia (apply 'format message args) :warning))
+
+(defvar-local mafia-temp-file-name nil
+  "The name of a temporary file to which the current buffer's content is copied.")
+
+(defun mafia-temp-file-name (&optional buffer)
+  "Return the name of a temp file containing an up-to-date copy of BUFFER's contents."
+  (with-current-buffer (or buffer (current-buffer))
+    (prog1
+        (or mafia-temp-file-name
+            (setq mafia-temp-file-name (mafia-make-temp-file "mafia" nil ".hs")))
+      (let ((contents (buffer-string)))
+        (with-temp-file mafia-temp-file-name
+          (insert contents))))))
+
+(defun mafia-make-temp-file (prefix &optional dir-flag suffix)
+  "Like `make-temp-file', but using a different temp directory.
+PREFIX, DIR-FLAG and SUFFIX are all passed to `make-temp-file'
+unmodified.  A different directory is applied so that if docker
+is used with stack, the commands run inside docker can find the
+path."
+  (let ((temporary-file-directory
+         (expand-file-name ".mafia-mode/"
+                           (mafia-project-root))))
+    (make-directory temporary-file-directory t)
+    (make-temp-file prefix dir-flag suffix)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; regex
