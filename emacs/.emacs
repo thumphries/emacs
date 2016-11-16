@@ -139,7 +139,8 @@
                                       erc-mode
 				      calendar
 				      calendar-mode
-				      magit-mode))
+				      magit-mode
+                                      mafia-repl-mode))
 
 (defadvice linum-on (around linum-on-inhibit-for-modes)
   "Stop the load of linum-mode for some major modes."

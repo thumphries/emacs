@@ -64,6 +64,7 @@
     (message "mafia mode disabled.")))
 
 (define-key mafia-mode-map (kbd "C-c C-z") 'mafia-repl)
+(define-key mafia-mode-map (kbd "C-c C-a") 'mafia-repl-add)
 (define-key mafia-mode-map (kbd "C-c C-l") 'mafia-repl-load)
 (define-key mafia-mode-map (kbd "C-c C-r") 'mafia-repl-reload)
 
@@ -220,8 +221,19 @@ This is set by `mafia-repl-buffer', and should otherwise be nil.")
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer)))
 
-;; for some reason intero copies the file before loading it
-;; this means reload doesn't work
+(defun mafia-repl-add (&optional prompt-options)
+  "Add the current file to the REPL session.
+If PROMPT-OPTIONS is non-nil, prompt with an options list."
+  (interactive "P")
+  (save-buffer)
+  (let ((file (buffer-file-name (current-buffer)))
+        (repl-buffer (mafia-repl-buffer prompt-options t)))
+    (with-current-buffer repl-buffer
+      (comint-simple-send
+        (get-buffer-process (current-buffer))
+        (concat ":add " file)))
+    (pop-to-buffer repl-buffer)))
+
 (defun mafia-repl-load (&optional prompt-options)
   "Load the current file in the REPL.
 If PROMPT-OPTIONS is non-nil, prompt with an options list."
@@ -235,6 +247,8 @@ If PROMPT-OPTIONS is non-nil, prompt with an options list."
         (concat ":l " file)))
     (pop-to-buffer repl-buffer)))
 
+;; for some reason intero copies the file before loading it
+;; this preserves that functionality, though I don't understand why
 (defun mafia-repl-load-buffer (&optional prompt-options)
   "Load the current file in the REPL, after copying.
 If PROMPT-OPTIONS is non-nil, prompt with an options list."
@@ -490,7 +504,9 @@ The process ended. Here is the reason that Emacs gives us:
 
 "
      (format "  mafia quick %s"
-             (combine-and-quote-strings mafia-arguments)))
+             (combine-and-quote-strings mafia-arguments))
+
+     (format "  pwd: %s" (shell-command-to-string "pwd")))
     'face 'compilation-error)))
 
 
