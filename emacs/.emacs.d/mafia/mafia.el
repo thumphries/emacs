@@ -213,12 +213,14 @@ STORE-PREVIOUS is non-nil, note the caller's buffer in
 BACKEND-BUFFER is used for options.
 TARGETS is the targets to load.
 If PROMPT-OPTIONS is non-nil, prompt with an options list."
+  (message "mafia-repl-mode-start was called")
+  (setq mafia-targets targets)
 ;;  (when prompt-options
 ;;    (intero-repl-options backend-buffer)) ;; TODO open files other than current
-      (let ((process (get-buffer-process (apply #'make-comint-in-buffer "mafia" (current-buffer) "mafia" nil "quick"))))
-           (when (process-live-p process)
-             (set-process-query-on-exit-flag process nil)
-             (message "Started Mafia process for REPL."))))
+  (let ((process (get-buffer-process (apply #'make-comint-in-buffer "mafia" (current-buffer) "mafia" nil (cons "quick" targets)))))
+       (when (process-live-p process)
+         (set-process-query-on-exit-flag process nil)
+       (message "Started Mafia process for REPL."))))
 
 (font-lock-add-keywords
  'mafia-repl-mode
