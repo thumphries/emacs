@@ -227,6 +227,19 @@ This is set by `mafia-repl-buffer', and should otherwise be nil.")
 If PROMPT-OPTIONS is non-nil, prompt with an options list."
   (interactive "P")
   (save-buffer)
+  (let ((file (buffer-file-name (current-buffer)))
+        (repl-buffer (mafia-repl-buffer prompt-options t)))
+    (with-current-buffer repl-buffer
+      (comint-simple-send
+        (get-buffer-process (current-buffer))
+        (concat ":l " file)))
+    (pop-to-buffer repl-buffer)))
+
+(defun mafia-repl-load-buffer (&optional prompt-options)
+  "Load the current file in the REPL, after copying.
+If PROMPT-OPTIONS is non-nil, prompt with an options list."
+    (interactive "P")
+    (save-buffer)
   (let ((file (mafia-temp-file-name))
         (repl-buffer (mafia-repl-buffer prompt-options t)))
     (with-current-buffer repl-buffer
