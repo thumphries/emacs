@@ -15,7 +15,8 @@
      "haskell-snippets"
      "handlebars-sgml-mode"
      "spacemacs-theme"
-     "hindent")))
+     "hindent"
+     "mafia-mode")))
 
 
 ; helm
@@ -315,3 +316,6 @@
 
 ;; handy bindings for ergodox
 (global-set-key (kbd "M-_") 'backward-kill-word)
+
+(require 'mafia)
+(add-hook 'haskell-mode-hook #'mafia-mode)
