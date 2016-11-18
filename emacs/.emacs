@@ -16,7 +16,8 @@
      "handlebars-sgml-mode"
      "spacemacs-theme"
      "hindent"
-     "mafia-mode")))
+     "mafia-mode"
+     "flycheck")))
 
 
 ; helm
@@ -317,5 +318,9 @@
 ;; handy bindings for ergodox
 (global-set-key (kbd "M-_") 'backward-kill-word)
 
+;; mafia-mode
 (require 'mafia)
 (add-hook 'haskell-mode-hook #'mafia-mode)
+
+;; flycheck
+(require 'flycheck)
