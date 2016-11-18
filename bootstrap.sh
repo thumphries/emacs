@@ -18,3 +18,8 @@ do
     make
   popd
 done
+
+pushd ${EMACS_D}/flycheck
+make init
+make compile
+popd
