@@ -15,6 +15,9 @@ Git subtree doesn't store the upstream details anywhere, so we have to
 manually provide them on the command line to pull. Luckily we almost
 never want to update packages!
 
+Some of these wrangle their own dependencies through Cask, which is
+unfortunate, but quite hard to untangle.
+
 | package | pull |
 | --- | --- |
 | markdown-mode | `git subtree pull --prefix emacs/.emacs.d/markdown-mode https://github.com/defunkt/markdown-mode master --squash` |
@@ -31,3 +34,4 @@ never want to update packages!
 | haskell-snippets | `git subtree pull --prefix emacs/.emacs.d/haskell-snippets https://github.com/haskell/haskell-snippets master --squash` |
 | handlebars-sgml-mode | `git subtree pull --prefix emacs/.emacs.d/handlebars-sgml-mode https://github.com/jacott/handlebars-sgml-mode master --squash` |
 | spacemacs-theme | `git subtree pull --prefix emacs/.emacs.d/spacemacs-theme https://github.com/nashamri/spacemacs-theme master --squash` |
+| flycheck | `git subtree pull --prefix emacs/.emacs.d/flycheck https://github.com/flycheck/flycheck master --squash` |

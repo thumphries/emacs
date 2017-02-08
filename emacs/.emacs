@@ -23,7 +23,9 @@
      "handlebars-sgml-mode"
      "spacemacs-theme"
      "hindent"
-     "mafia-mode")))
+     "mafia-mode"
+     "flycheck"
+     "seq")))
 
 
 ; helm
@@ -48,6 +50,7 @@
 ; projectile
 (require 'projectile)
 (projectile-global-mode)
+(add-to-list 'projectile-globally-ignored-directories "lib")
 
 ; haskell-mode
 (require 'haskell-mode-autoloads)
@@ -324,5 +327,13 @@
 ;; handy bindings for ergodox
 (global-set-key (kbd "M-_") 'backward-kill-word)
 
+;; sequences - remove in Emacs 25
+(require 'seq)
+
+;; flycheck
+(require 'flycheck)
+(setq flycheck-check-syntax-automatically '(mode-enabled save))
+
+;; mafia-mode
 (require 'mafia)
 (add-hook 'haskell-mode-hook #'mafia-mode)
