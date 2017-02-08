@@ -27,6 +27,8 @@
      "flycheck"
      "seq")))
 
+;; suppress warnings for dependencies
+(setq-default byte-compile-warnings '(not mapcar))
 
 ; helm
 (require 'helm-config)
@@ -53,7 +55,7 @@
 (add-to-list 'projectile-globally-ignored-directories "lib")
 
 ; haskell-mode
-(require 'haskell-mode-autoloads)
+; (require 'haskell-mode-autoloads)
 
 ; hindent
 (require 'hindent)
