@@ -65,7 +65,8 @@
 ;; Disable the ridiculous and frustrating electric-indent
 (electric-indent-mode 0)
 (cua-mode t)
-
+;; Unbind C-RET, it doesn't work in terminals and is thus a bad habit
+(define-key cua-global-keymap [C-return] nil)
 
 ;; lifted and modified from load-dir package
 (setq load-dir-loaded '())
@@ -87,6 +88,18 @@
 ;; C-SPC C-SPC - add to mark ring
 ;; C-u C-SPC <repeat> - cycle marks
 (setq set-mark-command-repeat-pop t)
+
+;; Use pbpaste/pbcopy as kill ring fundamentals in OS X
+;; TODO this should really be gated, will break everything in Linux
+(defun copy-from-osx ()
+  (shell-command-to-string "pbpaste"))
+(defun paste-to-osx (text &optional push)
+  (let ((process-connection-type nil))
+    (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+      (process-send-string proc text)
+      (process-send-eof proc))))
+(setq interprogram-cut-function 'paste-to-osx)
+(setq interprogram-paste-function 'copy-from-osx)
 
 ;; Stuff from old .emacs that should be split out somewhere
 
@@ -124,6 +137,10 @@
 (toggle-theme)
 (global-set-key (kbd "C-x C-_") 'toggle-theme)
 (global-set-key (kbd "C-x C--") 'toggle-theme)
+
+;; allow clicking around in xterm
+(require 'mouse)
+(xterm-mouse-mode)
 
 ;; smooth-scroll is clunky and doesn't behave like ordinary OS X scrolling
 (setq scroll-conservatively 10000)
